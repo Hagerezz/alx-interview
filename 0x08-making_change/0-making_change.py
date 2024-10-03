@@ -1,20 +1,21 @@
 #!/usr/bin/python3
 """
-    makeChange - function to make change
+    function to count money
 """
 def makeChange(coins, total):
-    # If the total is 0 or less, no coins are needed
+    """
+        function to count money
+    """
     if total <= 0:
         return 0
-    
-    # Create a list to store the fewest coins needed for each amount
-    dp = [float('inf')] * (total + 1)
-    dp[0] = 0  # Base case: 0 coins needed to make 0
-    
-    # Loop over each coin and update the dp array
-    for coin in coins:
-        for i in range(coin, total + 1):
-            dp[i] = min(dp[i], dp[i - coin] + 1)
-    
-    # If dp[total] is still infinity, it's not possible to make that total
-    return dp[total] if dp[total] != float('inf') else -1
+    else:
+        coins = sorted(coins)
+        coins.reverse()
+        c = 0
+        for i in coins:
+            while total >= i:
+                c += 1
+                total -= i
+        if total == 0:
+            return c
+        return -1
